@@ -6,15 +6,26 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"reconconverter/config"
+	"reconconverter/handler"
 	"regexp"
 	"strings"
 
+	"github.com/robfig/cron/v3"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 	"github.com/xuri/excelize/v2"
 )
 
 var app = cli.NewApp()
+
+type Application struct {
+	Config *config.Config
+}
+
+func (*Application) JobHandler() {
+
+}
 
 func main() {
 
@@ -49,7 +60,20 @@ func main() {
 
 	fmt.Println("Press ENTER to exit")
 	bufio.NewReader(os.Stdin).ReadBytes('\n')
-	// time.Sleep(2 * time.Second)
+
+	c := cron.New()
+
+	config := &config.Config{}
+	configFile := "./config.yaml"
+	config.LoadYAML(&configFile)
+
+	handler := handler.NewHandler(config)
+
+	c.AddFunc("* * * * *", handler.IndodanaHandler)
+
+	c.Start()
+
+	select {}
 
 }
 
