@@ -11,25 +11,36 @@ type Config struct {
 		Interval        int    `yaml:"interval"`
 		SourcePath      string `yaml:"sourcePath"`
 		DestinationPath string `yaml:"destinationPath"`
+		SftpSource      Sftp   `yaml:"sftpSource"`
+		SftpDestination Sftp   `yaml:"sftpDestination"`
 	} `yaml:"ovo"`
 	Indodana struct {
 		Interval        int    `yaml:"interval"`
 		SourcePath      string `yaml:"sourcePath"`
 		DestinationPath string `yaml:"destinationPath"`
-	} `yaml:"ovo"`
+		SftpSource      Sftp   `yaml:"sftpSource"`
+		SftpDestination Sftp   `yaml:"sftpDestination"`
+	} `yaml:"indodana"`
 	Sftp struct {
 		Host     string `yaml:"host"`
 		Port     int    `yaml:"port"`
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
 	} `yaml:"sftp"`
-	TempFolder string `yaml:"tempPath"`
+	TempFolder string `yaml:"tempFolder"`
 	Smtp       struct {
 		Host     string `yaml:"host"`
 		Port     int    `yaml:"port"`
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
 	} `yaml:"smtp"`
+}
+
+type Sftp struct {
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	User     string `yaml:"user"`
+	Password string `yaml:"password"`
 }
 
 func (c *Config) LoadYAML(filename *string) error {

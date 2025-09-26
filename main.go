@@ -1,11 +1,9 @@
 package main
 
 import (
-	"bufio"
 	"encoding/csv"
 	"fmt"
 	"os"
-	"path/filepath"
 	"reconconverter/config"
 	"reconconverter/handler"
 	"regexp"
@@ -29,37 +27,37 @@ func (*Application) JobHandler() {
 
 func main() {
 
-	folder := "."
-	err := filepath.WalkDir(folder, func(path string, d os.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
+	// folder := "."
+	// err := filepath.WalkDir(folder, func(path string, d os.DirEntry, err error) error {
+	// 	if err != nil {
+	// 		return err
+	// 	}
 
-		if d.IsDir() || !strings.HasSuffix(d.Name(), ".xlsx") {
-			return nil
-		}
+	// 	if d.IsDir() || !strings.HasSuffix(d.Name(), ".xlsx") {
+	// 		return nil
+	// 	}
 
-		logrus.Infof("Reading file.... %v", d.Name())
-		if strings.HasPrefix(d.Name(), "Indodana") {
-			err = indodanaHandler(path, d.Name())
-			if err != nil {
-				return err
-			}
-		} else {
-			err = ovoHandler(path, d.Name())
-		}
+	// 	logrus.Infof("Reading file.... %v", d.Name())
+	// 	if strings.HasPrefix(d.Name(), "Indodana") {
+	// 		err = indodanaHandler(path, d.Name())
+	// 		if err != nil {
+	// 			return err
+	// 		}
+	// 	} else {
+	// 		err = ovoHandler(path, d.Name())
+	// 	}
 
-		return nil
-	})
+	// 	return nil
+	// })
 
-	if err != nil {
-		logrus.Errorf("Got error : %v", err)
-	} else {
-		logrus.Info("Success")
-	}
+	// if err != nil {
+	// 	logrus.Errorf("Got error : %v", err)
+	// } else {
+	// 	logrus.Info("Success")
+	// }
 
-	fmt.Println("Press ENTER to exit")
-	bufio.NewReader(os.Stdin).ReadBytes('\n')
+	// fmt.Println("Press ENTER to exit")
+	// bufio.NewReader(os.Stdin).ReadBytes('\n')
 
 	c := cron.New()
 
