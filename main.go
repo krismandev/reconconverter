@@ -6,6 +6,7 @@ import (
 	"os"
 	"reconconverter/config"
 	"reconconverter/handler"
+	"reconconverter/mail"
 	"regexp"
 	"strings"
 
@@ -65,7 +66,12 @@ func main() {
 	configFile := "./config.yaml"
 	config.LoadYAML(&configFile)
 
-	handler := handler.NewHandler(config)
+	assets, err := mail.NewAssets("./views", mail.NotifConverted)
+	if err != nil {
+		panic(err)
+	}
+
+	handler := handler.NewHandler(config, assets)
 
 	c.AddFunc("* * * * *", handler.IndodanaHandler)
 

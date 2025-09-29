@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+</head>
+<body>  
+
+    <h3>
+        SUBJECT:
+    </h3>
+    <br>
+    <p>
+        {{.Subject}}
+    </p>
+
+    <br><br>
+    <h3>BODY:</h3>
+    <ul>
+        <li>
+            Status Pengambilan file dari SFTP : {{.AvailableStatus}}
+        </li>
+        <li>
+            Status Proses Konversi ke CSV : {{.ConversionStatus}}
+        </li>
+        <li>
+            Status Pengiriman Data ke Job Rekon : {{.DeliveryStatus}}
+        </li>
+    </ul>
+
+    <p>
+        Summary Data
+    </p>
+    <ul>
+        <li>
+            Jumlah Row (sebelum konversi) : {{.RowBefore}}
+        </li>
+        <li>
+            Jumlah Row (setelah konversi) : {{.RowAfter}}
+        </li>
+    </ul>
+
+    <p>
+        {{.ConditionalMessage}}
+    </p>
+</body>
+</html>

@@ -1,11 +1,14 @@
 package handler
 
 import (
+	"crypto/tls"
 	"encoding/csv"
 	"fmt"
 	"io"
+	"net/smtp"
 	"os"
 	"reconconverter/config"
+	"reconconverter/mail"
 	"strconv"
 	"strings"
 
@@ -19,22 +22,29 @@ import (
 type Handler struct {
 	Config     *config.Config
 	Client     *ssh.Client
-	MailSender Sender
+	MailSender mail.Sender
+	Assets     *mail.Assets
 }
 
-type Sender interface {
-	DialAndSend(...*gomail.Message) error
-}
+func NewHandler(config *config.Config, assets *mail.Assets) *Handler {
 
-func NewHandler(config *config.Config) *Handler {
+	dialer := gomail.NewDialer(config.Smtp.Host, config.Smtp.Port, config.Smtp.User, config.Smtp.Password)
+	dialer.Auth = smtp.PlainAuth("", config.Smtp.User, config.Smtp.Password, "mailer.yokke.co.id")
+	dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+	dialer.SSL = false
 
-	// dialer := gomail.NewDialer(config.Smtp.Host, config.Smtp.Port, config.Smtp.User, config.Smtp.Password)
-	// dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
-	// dialer.SSL = false
+	if conn, err := dialer.Dial(); err != nil {
+		logrus.Fatalf("failed to connect to smtp server: %v", err)
+	} else if err := conn.Close(); err != nil {
+		logrus.Fatalf("failed to close connection : %v", err)
+	}
+
+	logrus.Info("Connected to smtp")
 
 	return &Handler{
-		Config: config,
-		// MailSender: dialer,
+		Config:     config,
+		Assets:     assets,
+		MailSender: dialer,
 	}
 }
 
@@ -56,6 +66,7 @@ func (handler *Handler) OvoHandler() {
 }
 
 func (handler *Handler) IndodanaHandler() {
+	channelName := "Indodana"
 	logrus.Printf("Job Running... Indodana")
 	conn, client, err := handler.CreateClient(handler.Config.Indodana.SftpSource)
 	if err != nil {
@@ -105,13 +116,13 @@ func (handler *Handler) IndodanaHandler() {
 		remoteFile, err := client.Open(handler.Config.Indodana.SourcePath + "/" + file.Name())
 		if err != nil {
 			logrus.Printf("Failed to open file %s: %v", file.Name(), err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		}
 
 		// info, err := client.Stat(handler.Config.Indodana.SourcePath + "/" + file.Name())
 		// if err != nil {
-		// 	handler.OnErrorHandler("", err)
+		// 	handler.OnErrorHandler("",channelName, err)
 		// 	continue
 		// }
 
@@ -121,14 +132,14 @@ func (handler *Handler) IndodanaHandler() {
 
 		if err := os.MkdirAll(localPath, 0755); err != nil {
 			logrus.Errorf("Error when create directory %v", err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		}
 
 		localFile, err := os.Create(localPath + file.Name())
 		if err != nil {
 			logrus.Printf("Failed to create local file %s: %v", file.Name(), err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		}
 
@@ -137,7 +148,7 @@ func (handler *Handler) IndodanaHandler() {
 		_, err = io.Copy(localFile, remoteFile)
 		if err != nil {
 			logrus.Errorf("Failed to copy file %s: %v", file.Name(), err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		} else {
 			logrus.Infof("Downloaded:", file.Name())
@@ -146,7 +157,7 @@ func (handler *Handler) IndodanaHandler() {
 		f, err := excelize.OpenFile(localFile.Name())
 		if err != nil {
 			logrus.Fatalf("Got error %v", err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		}
 
@@ -156,7 +167,7 @@ func (handler *Handler) IndodanaHandler() {
 		rows, err := f.GetRows("Ledger")
 		if err != nil {
 			logrus.Errorf("Got error when get rows %v", err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		}
 
@@ -173,7 +184,7 @@ func (handler *Handler) IndodanaHandler() {
 		err = os.MkdirAll(outputDir, 0755)
 		if err != nil {
 			logrus.Errorf("Error when create directory %v", err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		}
 		arrName := strings.Split(localFile.Name(), "/")
@@ -185,7 +196,7 @@ func (handler *Handler) IndodanaHandler() {
 		newFile, err := os.Create(outputDir + "/" + newFilename)
 		if err != nil {
 			logrus.Errorf("Error when create file %v", err)
-			handler.OnErrorHandler("", err)
+			handler.OnErrorHandler("", channelName, err)
 			continue
 		}
 
@@ -195,7 +206,7 @@ func (handler *Handler) IndodanaHandler() {
 		for _, each := range content {
 			if err := writer.Write(each); err != nil {
 				logrus.Errorf("Failed to write file %v: %v", newFile.Name(), err)
-				handler.OnErrorHandler("", err)
+				handler.OnErrorHandler("", channelName, err)
 				continue
 			}
 		}
@@ -243,16 +254,21 @@ func (handler *Handler) IndodanaHandler() {
 
 		logrus.Printf("Success converting file")
 
-		return
-
 		// IF NO ERROR
 
 	}
 
 }
 
-func (handler *Handler) OnErrorHandler(reason string, err error) {
+func (handler *Handler) OnErrorHandler(reason string, channelName string, err error) {
+	// message := gomail.NewMessage()
+	// message.SetHeader("From", handler.Config.Smtp.From)
+	// message.SetHeader("To", handler.Config.Smtp.To)
+	// now := time.Now().Format("2006-01-02 15:04:05")
+	// subject := "Proses Konversi Excel ke CSV - " + channelName + " " + now
 
+	// message.SetHeader("Subject", subject)
+	// message.SetBody("text/html", body)
 }
 
 func (handler *Handler) CreateClient(sftpConfig config.Sftp) (conn *ssh.Client, cl *sftp.Client, e error) {

@@ -33,6 +33,8 @@ type Config struct {
 		Port     int    `yaml:"port"`
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
+		From     string `yaml:"from"`
+		To       string `yaml:"to"`
 	} `yaml:"smtp"`
 }
 
