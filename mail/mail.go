@@ -21,7 +21,7 @@ const (
 // var views = map[EmailType]string{}
 
 type Assets struct {
-	templates map[EmailType]*template.Template
+	Templates map[EmailType]*template.Template
 }
 
 func NewAssets(basePath string, mailTypes ...EmailType) (*Assets, error) {
@@ -38,6 +38,6 @@ func NewAssets(basePath string, mailTypes ...EmailType) (*Assets, error) {
 		templates[tp] = t
 	}
 	return &Assets{
-		templates: templates,
+		Templates: templates,
 	}, nil
 }

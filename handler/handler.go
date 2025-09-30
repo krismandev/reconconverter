@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"bytes"
 	"crypto/tls"
 	"encoding/csv"
 	"fmt"
@@ -11,6 +12,7 @@ import (
 	"reconconverter/mail"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/pkg/sftp"
 	"github.com/sirupsen/logrus"
@@ -24,6 +26,12 @@ type Handler struct {
 	Client     *ssh.Client
 	MailSender mail.Sender
 	Assets     *mail.Assets
+}
+
+var reasonsMap = map[string]string{
+	"notExists":   "File tidak ditemukan",
+	"invalidFile": "File tidak valid",
+	"emptyFile":   "File kosong",
 }
 
 func NewHandler(config *config.Config, assets *mail.Assets) *Handler {
@@ -254,21 +262,93 @@ func (handler *Handler) IndodanaHandler() {
 
 		logrus.Printf("Success converting file")
 
-		// IF NO ERROR
+		handler.OnSuccessHandler("", "Indodana", countBefore, countAfter)
 
 	}
 
 }
 
 func (handler *Handler) OnErrorHandler(reason string, channelName string, err error) {
-	// message := gomail.NewMessage()
-	// message.SetHeader("From", handler.Config.Smtp.From)
-	// message.SetHeader("To", handler.Config.Smtp.To)
-	// now := time.Now().Format("2006-01-02 15:04:05")
-	// subject := "Proses Konversi Excel ke CSV - " + channelName + " " + now
+	message := gomail.NewMessage()
+	message.SetHeader("From", handler.Config.Smtp.From)
+	message.SetHeader("To", handler.Config.Smtp.To)
+	now := time.Now().Format("2006-01-02 15:04:05")
+	subject := "Proses Konversi Excel ke CSV - " + channelName + " " + now
 
-	// message.SetHeader("Subject", subject)
-	// message.SetBody("text/html", body)
+	asset := handler.Assets.Templates[mail.NotifConverted]
+	if asset == nil {
+		logrus.Errorf("Asset not found or invalid error type")
+		return
+	}
+
+	templateData := struct {
+		Subject            string
+		AvailableStatus    string
+		ConversionStatus   string
+		DeliveryStatus     string
+		RowBefore          string
+		RowAfter           string
+		ConditionalMessage string
+	}{
+		Subject:            subject,
+		ConditionalMessage: reasonsMap[reason],
+	}
+
+	bBody := new(bytes.Buffer)
+	if err := asset.Execute(bBody, templateData); err != nil {
+		logrus.Errorf("Error parsing template : %v", err)
+	}
+	message.SetHeader("Subject", subject)
+	message.SetBody("text/html", bBody.String())
+
+	err = handler.MailSender.DialAndSend(message)
+	if err != nil {
+		logrus.Errorf("Error sending email: %v", err)
+	}
+}
+
+func (handler *Handler) OnSuccessHandler(reason string, channelName string, rowBefore, rowAfter int) {
+	message := gomail.NewMessage()
+	message.SetHeader("From", handler.Config.Smtp.From)
+	message.SetHeader("To", handler.Config.Smtp.To)
+	now := time.Now().Format("2006-01-02 15:04:05")
+	subject := "[Berhasil] Proses Konversi Excel ke CSV - " + channelName + " " + now
+
+	asset := handler.Assets.Templates[mail.NotifConverted]
+	if asset == nil {
+		logrus.Errorf("Asset not found or invalid error type")
+		return
+	}
+
+	templateData := struct {
+		Subject            string
+		AvailableStatus    string
+		ConversionStatus   string
+		DeliveryStatus     string
+		RowBefore          string
+		RowAfter           string
+		ConditionalMessage string
+	}{
+		Subject:            subject,
+		ConditionalMessage: "Tidak ada perubahan jumlah data. Silahkan verifikasi isi file jika diperlukan",
+		AvailableStatus:    "OK",
+		ConversionStatus:   "OK",
+		DeliveryStatus:     "OK",
+		RowBefore:          strconv.Itoa(rowBefore),
+		RowAfter:           strconv.Itoa(rowAfter),
+	}
+
+	bBody := new(bytes.Buffer)
+	if err := asset.Execute(bBody, templateData); err != nil {
+		logrus.Errorf("Error parsing template : %v", err)
+	}
+	message.SetHeader("Subject", subject)
+	message.SetBody("text/html", bBody.String())
+
+	err := handler.MailSender.DialAndSend(message)
+	if err != nil {
+		logrus.Errorf("Error sending email: %v", err)
+	}
 }
 
 func (handler *Handler) CreateClient(sftpConfig config.Sftp) (conn *ssh.Client, cl *sftp.Client, e error) {
