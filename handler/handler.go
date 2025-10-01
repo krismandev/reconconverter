@@ -76,7 +76,7 @@ func (handler *Handler) OvoHandler() {
 }
 
 func (handler *Handler) IndodanaHandler() {
-	channelName := "Indodana"
+	channelName := "indodana"
 	logrus.Printf("Job Running... Indodana")
 	conn, client, err := handler.CreateClient(handler.Config.Indodana.SftpSource)
 	if err != nil {
@@ -123,7 +123,8 @@ func (handler *Handler) IndodanaHandler() {
 			continue // skip subdirectories
 		}
 
-		remoteFile, err := client.Open(handler.Config.Indodana.SourcePath + "/" + file.Name())
+		remoteFileSourcePath := handler.Config.Indodana.SourcePath + "/" + file.Name()
+		remoteFile, err := client.Open(remoteFileSourcePath)
 		if err != nil {
 			logrus.Printf("Failed to open file %s: %v", file.Name(), err)
 			handler.OnErrorHandler("internalError", channelName, err)
@@ -138,24 +139,24 @@ func (handler *Handler) IndodanaHandler() {
 
 		defer remoteFile.Close()
 
-		localPath := handler.Config.TempFolder + "/before/indodana/"
+		localPathBefore := handler.Config.TempFolder + "/before/" + channelName + "/"
 
-		if err := os.MkdirAll(localPath, 0755); err != nil {
+		if err := os.MkdirAll(localPathBefore, 0755); err != nil {
 			logrus.Errorf("Error when create directory %v", err)
 			handler.OnErrorHandler("directoryError", channelName, err)
 			continue
 		}
-
-		localFile, err := os.Create(localPath + file.Name())
+		localPathBefore = localPathBefore + file.Name()
+		localFileBefore, err := os.Create(localPathBefore)
 		if err != nil {
 			logrus.Printf("Failed to create local file %s: %v", file.Name(), err)
 			handler.OnErrorHandler("internalError", channelName, err)
 			continue
 		}
 
-		defer localFile.Close()
+		defer localFileBefore.Close()
 
-		_, err = io.Copy(localFile, remoteFile)
+		_, err = io.Copy(localFileBefore, remoteFile)
 		if err != nil {
 			logrus.Errorf("Failed to copy file %s: %v", file.Name(), err)
 			handler.OnErrorHandler("internalError", channelName, err)
@@ -164,7 +165,7 @@ func (handler *Handler) IndodanaHandler() {
 			logrus.Infof("Downloaded: %v", file.Name())
 		}
 
-		f, err := excelize.OpenFile(localFile.Name())
+		f, err := excelize.OpenFile(localFileBefore.Name())
 		if err != nil {
 			logrus.Fatalf("Got error %v", err)
 			handler.OnErrorHandler("internalError", channelName, err)
@@ -197,13 +198,14 @@ func (handler *Handler) IndodanaHandler() {
 			handler.OnErrorHandler("directoryError", channelName, err)
 			continue
 		}
-		arrName := strings.Split(localFile.Name(), "/")
+		arrName := strings.Split(localFileBefore.Name(), "/")
 
 		newFilename := strings.ReplaceAll(arrName[len(arrName)-1], "_yokke-ptp", "")
 		newFilename = strings.ReplaceAll(newFilename, ".xlsx", "")
 
 		newFilename = newFilename + ".csv"
-		newFile, err := os.Create(outputDir + "/" + newFilename)
+		localFileAfter := outputDir + "/" + newFilename
+		newFile, err := os.Create(localFileAfter)
 		if err != nil {
 			logrus.Errorf("Error when create file %v", err)
 			handler.OnErrorHandler("", channelName, err)
@@ -223,7 +225,7 @@ func (handler *Handler) IndodanaHandler() {
 
 		writer.Flush()
 
-		fmt.Println("INDODANA file " + localFile.Name() + " converted to ---->  " + newFilename + " successfully")
+		fmt.Println("INDODANA file " + localFileBefore.Name() + " converted to ---->  " + newFilename + " successfully")
 
 		dstFile, err := clientDest.Create(handler.Config.Indodana.DestinationPath + "/" + newFilename)
 		if err != nil {
@@ -274,6 +276,21 @@ func (handler *Handler) IndodanaHandler() {
 		logrus.Printf("Success converting file")
 
 		handler.OnSuccessHandler("", "Indodana", countBefore, countAfter)
+
+		err = os.Remove(localPathBefore)
+		if err != nil {
+			logrus.Errorf("Failed to remove local file %v", err)
+		}
+		err = os.Remove(localFileAfter)
+		if err != nil {
+			logrus.Errorf("Failed to remove local file %v", err)
+		}
+
+		backupPath := handler.Config.Indodana.BackupPath + "/" + file.Name()
+		err = client.Rename(remoteFileSourcePath, backupPath)
+		if err != nil {
+			logrus.Errorf("Failed to remove remote file %v", err)
+		}
 
 	}
 

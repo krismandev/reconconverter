@@ -20,6 +20,7 @@ type Config struct {
 		DestinationPath string `yaml:"destinationPath"`
 		SftpSource      Sftp   `yaml:"sftpSource"`
 		SftpDestination Sftp   `yaml:"sftpDestination"`
+		BackupPath      string `yaml:"backupPath"`
 	} `yaml:"indodana"`
 	Sftp struct {
 		Host     string `yaml:"host"`
