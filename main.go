@@ -9,6 +9,7 @@ import (
 	"reconconverter/mail"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/robfig/cron/v3"
 	"github.com/sirupsen/logrus"
@@ -73,7 +74,14 @@ func main() {
 
 	handler := handler.NewHandler(config, assets)
 
-	c.AddFunc("* * * * *", handler.IndodanaHandler)
+	c.AddFunc("* * * * *", func() {
+		counter := 0
+		for counter < 4 {
+			counter++
+			handler.IndodanaHandler()
+			time.Sleep(time.Second * 15)
+		}
+	})
 
 	c.Start()
 

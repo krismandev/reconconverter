@@ -6,7 +6,6 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
-	"net/smtp"
 	"os"
 	"reconconverter/config"
 	"reconconverter/mail"
@@ -29,15 +28,18 @@ type Handler struct {
 }
 
 var reasonsMap = map[string]string{
-	"notExists":   "File tidak ditemukan",
-	"invalidFile": "File tidak valid",
-	"emptyFile":   "File kosong",
+	"notExistsError":   "File tidak ditemukan",
+	"invalidFileError": "File tidak valid",
+	"emptyFileError":   "File kosong",
+	"unknownError":     "Unknown Error",
+	"directoryError":   "Directory Error",
+	"internalError":    "Internal Error",
 }
 
 func NewHandler(config *config.Config, assets *mail.Assets) *Handler {
 
 	dialer := gomail.NewDialer(config.Smtp.Host, config.Smtp.Port, config.Smtp.User, config.Smtp.Password)
-	dialer.Auth = smtp.PlainAuth("", config.Smtp.User, config.Smtp.Password, "mailer.yokke.co.id")
+	// dialer.Auth = smtp.PlainAuth("", config.Smtp.User, config.Smtp.Password, config.Smtp.Host)
 	dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 	dialer.SSL = false
 
@@ -124,7 +126,7 @@ func (handler *Handler) IndodanaHandler() {
 		remoteFile, err := client.Open(handler.Config.Indodana.SourcePath + "/" + file.Name())
 		if err != nil {
 			logrus.Printf("Failed to open file %s: %v", file.Name(), err)
-			handler.OnErrorHandler("", channelName, err)
+			handler.OnErrorHandler("internalError", channelName, err)
 			continue
 		}
 
@@ -140,14 +142,14 @@ func (handler *Handler) IndodanaHandler() {
 
 		if err := os.MkdirAll(localPath, 0755); err != nil {
 			logrus.Errorf("Error when create directory %v", err)
-			handler.OnErrorHandler("", channelName, err)
+			handler.OnErrorHandler("directoryError", channelName, err)
 			continue
 		}
 
 		localFile, err := os.Create(localPath + file.Name())
 		if err != nil {
 			logrus.Printf("Failed to create local file %s: %v", file.Name(), err)
-			handler.OnErrorHandler("", channelName, err)
+			handler.OnErrorHandler("internalError", channelName, err)
 			continue
 		}
 
@@ -156,16 +158,16 @@ func (handler *Handler) IndodanaHandler() {
 		_, err = io.Copy(localFile, remoteFile)
 		if err != nil {
 			logrus.Errorf("Failed to copy file %s: %v", file.Name(), err)
-			handler.OnErrorHandler("", channelName, err)
+			handler.OnErrorHandler("internalError", channelName, err)
 			continue
 		} else {
-			logrus.Infof("Downloaded:", file.Name())
+			logrus.Infof("Downloaded: %v", file.Name())
 		}
 
 		f, err := excelize.OpenFile(localFile.Name())
 		if err != nil {
 			logrus.Fatalf("Got error %v", err)
-			handler.OnErrorHandler("", channelName, err)
+			handler.OnErrorHandler("internalError", channelName, err)
 			continue
 		}
 
@@ -175,7 +177,7 @@ func (handler *Handler) IndodanaHandler() {
 		rows, err := f.GetRows("Ledger")
 		if err != nil {
 			logrus.Errorf("Got error when get rows %v", err)
-			handler.OnErrorHandler("", channelName, err)
+			handler.OnErrorHandler("invalidFileError", channelName, err)
 			continue
 		}
 
@@ -187,12 +189,12 @@ func (handler *Handler) IndodanaHandler() {
 			content = append(content, each)
 		}
 
-		outputDir := "./tmp/after"
+		outputDir := "./tmp/after/" + channelName
 
 		err = os.MkdirAll(outputDir, 0755)
 		if err != nil {
 			logrus.Errorf("Error when create directory %v", err)
-			handler.OnErrorHandler("", channelName, err)
+			handler.OnErrorHandler("directoryError", channelName, err)
 			continue
 		}
 		arrName := strings.Split(localFile.Name(), "/")
@@ -214,7 +216,7 @@ func (handler *Handler) IndodanaHandler() {
 		for _, each := range content {
 			if err := writer.Write(each); err != nil {
 				logrus.Errorf("Failed to write file %v: %v", newFile.Name(), err)
-				handler.OnErrorHandler("", channelName, err)
+				handler.OnErrorHandler("internalError", channelName, err)
 				continue
 			}
 		}
@@ -226,23 +228,30 @@ func (handler *Handler) IndodanaHandler() {
 		dstFile, err := clientDest.Create(handler.Config.Indodana.DestinationPath + "/" + newFilename)
 		if err != nil {
 			logrus.Errorf("Failed to put file %v to sftp server. Err: %", newFilename, err.Error())
+			handler.OnErrorHandler("directoryError", channelName, err)
+			continue
 		}
 
 		defer dstFile.Close()
 
 		if _, err := newFile.Seek(0, 0); err != nil {
 			logrus.Errorf("Failed to seek file %v: %v", newFile.Name(), err)
+			handler.OnErrorHandler("internalError", channelName, err)
+			continue
 		}
 
 		_, err = io.Copy(dstFile, newFile)
 		if err != nil {
-			logrus.Errorf("Failed to copy file %v to sftp server. Err:", newFile.Name(), err.Error())
+			logrus.Errorf("Failed to copy file %v to sftp server. Err: %v", newFile.Name(), err.Error())
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+			continue
 		}
 
 		// read again to count row after converted
 		convertedFile, err := clientDest.Open(handler.Config.Indodana.DestinationPath + "/" + newFilename)
 		if err != nil {
 			logrus.Fatalf("Failed to read file (converted) %s: %v", newFilename, err)
+			handler.OnErrorHandler("invalidFileError", channelName, err)
 		}
 
 		defer convertedFile.Close()
@@ -252,6 +261,8 @@ func (handler *Handler) IndodanaHandler() {
 		convertedRecords, err := reader.ReadAll()
 		if err != nil {
 			logrus.Errorf("Failed to read csv: %v", err)
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+			continue
 		}
 
 		var countAfter int
