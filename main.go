@@ -83,6 +83,11 @@ func main() {
 		}
 	})
 
+	c.AddFunc("0 23 * * *", func() {
+		handler.BackupCleanerIndodana()
+		handler.BackupCleanerOvo()
+	})
+
 	c.Start()
 
 	select {}
