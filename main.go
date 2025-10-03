@@ -7,6 +7,7 @@ import (
 	"reconconverter/config"
 	"reconconverter/handler"
 	"reconconverter/mail"
+	"reconconverter/utils"
 	"regexp"
 	"strings"
 	"time"
@@ -63,6 +64,9 @@ func main() {
 
 	c := cron.New()
 
+	logrus.SetReportCaller(true)
+	logrus.SetFormatter(&utils.CustomJSONFormatter{})
+	logrus.SetOutput(os.Stdout)
 	config := &config.Config{}
 	configFile := "./config.yaml"
 	config.LoadYAML(&configFile)
@@ -79,11 +83,12 @@ func main() {
 		for counter < 4 {
 			counter++
 			handler.IndodanaHandler()
+			handler.OvoHandler()
 			time.Sleep(time.Second * 15)
 		}
 	})
 
-	c.AddFunc("0 23 * * *", func() {
+	c.AddFunc("* * * * *", func() {
 		handler.BackupCleanerIndodana()
 		handler.BackupCleanerOvo()
 	})

@@ -148,10 +148,15 @@ func (handler *Handler) OvoHandler() {
 			continue
 		}
 
+		sheetList := f.GetSheetList()
+
+		sheet := sheetList[0]
+
 		// var header []string
 		var content [][]string
 
-		rows, err := f.GetRows("Ledger")
+		rows, err := f.GetRows(sheet)
+
 		if err != nil {
 			logrus.Errorf("Got error when get rows %v", err)
 			handler.OnErrorHandler("invalidFileError", channelName, err)
@@ -192,10 +197,18 @@ func (handler *Handler) OvoHandler() {
 
 		writer := csv.NewWriter(newFile)
 		writer.Comma = ';'
+		columnNum := 0
 
 		for idx, each := range content {
+			if idx == 0 {
+				columnNum = len(each)
+			}
 			// exclude row terakhir (row summary)
-			if idx < len(content) {
+			if idx < len(content)-1 {
+				// jika kolom terakhir tidak ada datanya
+				if len(each) == (columnNum - 1) {
+					each = append(each, "")
+				}
 				if err := writer.Write(each); err != nil {
 					logrus.Errorf("Failed to write file %v: %v", newFile.Name(), err)
 					handler.OnErrorHandler("internalError", channelName, err)
@@ -208,9 +221,9 @@ func (handler *Handler) OvoHandler() {
 
 		fmt.Println("OVO file " + localFileBefore.Name() + " converted to ---->  " + newFilename + " successfully")
 
-		dstFile, err := clientDest.Create(handler.Config.Indodana.DestinationPath + "/" + newFilename)
+		dstFile, err := clientDest.Create(handler.Config.Ovo.DestinationPath + "/" + newFilename)
 		if err != nil {
-			logrus.Errorf("Failed to put file %v to sftp server. Err: %", newFilename, err.Error())
+			logrus.Errorf("Failed to put file %v to sftp server. Err: %v", newFilename, err.Error())
 			handler.OnErrorHandler("directoryError", channelName, err)
 			continue
 		}
@@ -231,7 +244,7 @@ func (handler *Handler) OvoHandler() {
 		}
 
 		// read again to count row after converted
-		convertedFile, err := clientDest.Open(handler.Config.Indodana.DestinationPath + "/" + newFilename)
+		convertedFile, err := clientDest.Open(handler.Config.Ovo.DestinationPath + "/" + newFilename)
 		if err != nil {
 			logrus.Fatalf("Failed to read file (converted) %s: %v", newFilename, err)
 			handler.OnErrorHandler("invalidFileError", channelName, err)
@@ -266,7 +279,7 @@ func (handler *Handler) OvoHandler() {
 			logrus.Errorf("Failed to remove local file %v", err)
 		}
 
-		backupPath := handler.Config.Indodana.BackupPath + "/" + file.Name()
+		backupPath := handler.Config.Ovo.BackupPath + "/" + file.Name()
 		err = client.Rename(remoteFileSourcePath, backupPath)
 		if err != nil {
 			logrus.Errorf("Failed to remove remote file %v", err)
@@ -488,7 +501,7 @@ func (handler *Handler) IndodanaHandler() {
 		backupPath := handler.Config.Indodana.BackupPath + "/" + file.Name()
 		err = client.Rename(remoteFileSourcePath, backupPath)
 		if err != nil {
-			logrus.Errorf("Failed to remove remote file %v", err)
+			logrus.Errorf("Failed to backup remote file %v to %v . Err: %v", remoteFileSourcePath, backupPath, err)
 		}
 
 	}
@@ -498,7 +511,7 @@ func (handler *Handler) IndodanaHandler() {
 func (handler *Handler) OnErrorHandler(reason string, channelName string, err error) {
 	message := gomail.NewMessage()
 	message.SetHeader("From", handler.Config.Smtp.From)
-	message.SetHeader("To", handler.Config.Smtp.To)
+	message.SetHeader("To", handler.Config.MailReceivers...)
 	now := time.Now().Format("2006-01-02 15:04:05")
 	subject := "Proses Konversi Excel ke CSV - " + channelName + " " + now
 
@@ -537,7 +550,7 @@ func (handler *Handler) OnErrorHandler(reason string, channelName string, err er
 func (handler *Handler) OnSuccessHandler(reason string, channelName string, rowBefore, rowAfter int) {
 	message := gomail.NewMessage()
 	message.SetHeader("From", handler.Config.Smtp.From)
-	message.SetHeader("To", handler.Config.Smtp.To)
+	message.SetHeader("To", handler.Config.MailReceivers...)
 	now := time.Now().Format("2006-01-02 15:04:05")
 	subject := "[Berhasil] Proses Konversi Excel ke CSV - " + channelName + " " + now
 

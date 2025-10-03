@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"path"
 	"time"
 
 	"github.com/pkg/sftp"
@@ -9,6 +10,7 @@ import (
 )
 
 func (handler *Handler) BackupCleanerIndodana() {
+	channelName := "indodana"
 	logrus.Printf("Job Running... Indodana backup removal")
 	conn, client, err := handler.CreateClient(handler.Config.Indodana.SftpSource)
 	if err != nil {
@@ -27,11 +29,12 @@ func (handler *Handler) BackupCleanerIndodana() {
 		conn.Close()
 	}()
 
-	handler.RemoveFiles(conn, client, handler.Config.Indodana.BackupPath)
+	handler.RemoveFiles(conn, client, handler.Config.Indodana.BackupPath, channelName)
 
 }
 
 func (handler *Handler) BackupCleanerOvo() {
+	channelName := "ovo"
 	logrus.Printf("Job Running... Ovo backup removal")
 	conn, client, err := handler.CreateClient(handler.Config.Ovo.SftpSource)
 	if err != nil {
@@ -50,14 +53,14 @@ func (handler *Handler) BackupCleanerOvo() {
 		conn.Close()
 	}()
 
-	handler.RemoveFiles(conn, client, handler.Config.Ovo.BackupPath)
+	handler.RemoveFiles(conn, client, handler.Config.Ovo.BackupPath, channelName)
 
 }
 
-func (handler *Handler) RemoveFiles(sshClient *ssh.Client, sftpClient *sftp.Client, backupPath string) {
+func (handler *Handler) RemoveFiles(sshClient *ssh.Client, sftpClient *sftp.Client, backupPath string, channelName string) {
 	files, err := sftpClient.ReadDir(backupPath)
 	if err != nil {
-		logrus.Errorf("Failed to read directory: %v", err)
+		logrus.Errorf("Failed to read directory: %v channelName:%v", err, channelName)
 		return
 	}
 
@@ -66,13 +69,13 @@ func (handler *Handler) RemoveFiles(sshClient *ssh.Client, sftpClient *sftp.Clie
 
 		now := time.Now()
 		diff := now.Sub(originalModTime)
-		if diff.Hours() >= 168 {
-			logrus.Infof("Delete file %s", file.Name())
-			err = sftpClient.Remove(file.Name())
+		if diff.Minutes() >= 1 {
+			err = sftpClient.Remove(path.Join(backupPath, file.Name()))
 			if err != nil {
 				logrus.Errorf("Failed to remove file: %v", err)
 				return
 			}
+			logrus.Infof("file %s deleted successfully", file.Name())
 		}
 	}
 }

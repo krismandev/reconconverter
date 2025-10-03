@@ -2,6 +2,7 @@ package config
 
 import (
 	"io/ioutil"
+	"strings"
 
 	"github.com/go-yaml/yaml"
 )
@@ -38,6 +39,7 @@ type Config struct {
 		From     string `yaml:"from"`
 		To       string `yaml:"to"`
 	} `yaml:"smtp"`
+	MailReceivers []string
 }
 
 type Sftp struct {
@@ -56,5 +58,7 @@ func (c *Config) LoadYAML(filename *string) error {
 	if err != nil {
 		return err
 	}
+
+	c.MailReceivers = strings.Split(c.Smtp.To, ",")
 	return nil
 }
