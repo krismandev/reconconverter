@@ -9,6 +9,7 @@ import (
 	"os"
 	"reconconverter/config"
 	"reconconverter/mail"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -59,6 +60,8 @@ func NewHandler(config *config.Config, assets *mail.Assets) *Handler {
 }
 
 func (handler *Handler) OvoHandler() {
+	channelName := "ovo"
+	logrus.Printf("Job Running... Ovo")
 	conn, client, err := handler.CreateClient(handler.Config.Ovo.SftpSource)
 	if err != nil {
 		logrus.Fatalf("Failed to create client: %v", err)
@@ -68,11 +71,207 @@ func (handler *Handler) OvoHandler() {
 		if conn != nil {
 			conn.Close()
 		}
+		return
 	}
 
 	defer client.Close()
 	defer conn.Close()
 
+	files, err := client.ReadDir(handler.Config.Ovo.SourcePath)
+	if err != nil {
+		logrus.Fatalf("Failed to read directory: %v", err)
+		return
+	}
+
+	connDest, clientDest, err := handler.CreateClient(handler.Config.Ovo.SftpDestination)
+	if err != nil {
+		logrus.Printf("Failed to create client: %v", err)
+		if client != nil {
+			client.Close()
+		}
+		if conn != nil {
+			conn.Close()
+		}
+		return
+	}
+	defer func() {
+		clientDest.Close()
+		connDest.Close()
+	}()
+
+	for _, file := range files {
+		var err error
+		if file.IsDir() {
+			continue // skip subdirectories
+		}
+
+		remoteFileSourcePath := handler.Config.Ovo.SourcePath + "/" + file.Name()
+		remoteFile, err := client.Open(remoteFileSourcePath)
+		if err != nil {
+			logrus.Printf("Failed to open file %s: %v", file.Name(), err)
+			handler.OnErrorHandler("internalError", channelName, err)
+			continue
+		}
+
+		defer remoteFile.Close()
+
+		localPathBefore := handler.Config.TempFolder + "/before/" + channelName + "/"
+
+		if err := os.MkdirAll(localPathBefore, 0755); err != nil {
+			logrus.Errorf("Error when create directory %v", err)
+			handler.OnErrorHandler("directoryError", channelName, err)
+			continue
+		}
+		localPathBefore = localPathBefore + file.Name()
+		localFileBefore, err := os.Create(localPathBefore)
+		if err != nil {
+			logrus.Printf("Failed to create local file %s: %v", file.Name(), err)
+			handler.OnErrorHandler("internalError", channelName, err)
+			continue
+		}
+
+		defer localFileBefore.Close()
+
+		_, err = io.Copy(localFileBefore, remoteFile)
+		if err != nil {
+			logrus.Errorf("Failed to copy file %s: %v", file.Name(), err)
+			handler.OnErrorHandler("internalError", channelName, err)
+			continue
+		} else {
+			logrus.Infof("Downloaded: %v", file.Name())
+		}
+
+		f, err := excelize.OpenFile(localFileBefore.Name())
+		if err != nil {
+			logrus.Fatalf("Got error %v", err)
+			handler.OnErrorHandler("internalError", channelName, err)
+			continue
+		}
+
+		// var header []string
+		var content [][]string
+
+		rows, err := f.GetRows("Ledger")
+		if err != nil {
+			logrus.Errorf("Got error when get rows %v", err)
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+			continue
+		}
+
+		var countBefore int
+		for idx, each := range rows {
+			if idx > 0 {
+				countBefore++
+			}
+			content = append(content, each)
+		}
+
+		outputDir := "./tmp/after/" + channelName
+
+		err = os.MkdirAll(outputDir, 0755)
+		if err != nil {
+			logrus.Errorf("Error when create directory %v", err)
+			handler.OnErrorHandler("directoryError", channelName, err)
+			continue
+		}
+		arrName := strings.Split(localFileBefore.Name(), "/")
+
+		re := regexp.MustCompile(`(\d{2})-(\d{2})-(\d{4})`)
+
+		newFilename := re.ReplaceAllString(arrName[len(arrName)-1], "$3$2$1")
+		newFilename = strings.ReplaceAll(newFilename, ".xlsx", "")
+
+		newFilename = newFilename + ".csv"
+		localFileAfter := outputDir + "/" + newFilename
+		newFile, err := os.Create(localFileAfter)
+		if err != nil {
+			logrus.Errorf("Error when create file %v", err)
+			handler.OnErrorHandler("", channelName, err)
+			continue
+		}
+
+		writer := csv.NewWriter(newFile)
+		writer.Comma = ';'
+
+		for idx, each := range content {
+			// exclude row terakhir (row summary)
+			if idx < len(content) {
+				if err := writer.Write(each); err != nil {
+					logrus.Errorf("Failed to write file %v: %v", newFile.Name(), err)
+					handler.OnErrorHandler("internalError", channelName, err)
+					continue
+				}
+			}
+		}
+
+		writer.Flush()
+
+		fmt.Println("OVO file " + localFileBefore.Name() + " converted to ---->  " + newFilename + " successfully")
+
+		dstFile, err := clientDest.Create(handler.Config.Indodana.DestinationPath + "/" + newFilename)
+		if err != nil {
+			logrus.Errorf("Failed to put file %v to sftp server. Err: %", newFilename, err.Error())
+			handler.OnErrorHandler("directoryError", channelName, err)
+			continue
+		}
+
+		defer dstFile.Close()
+
+		if _, err := newFile.Seek(0, 0); err != nil {
+			logrus.Errorf("Failed to seek file %v: %v", newFile.Name(), err)
+			handler.OnErrorHandler("internalError", channelName, err)
+			continue
+		}
+
+		_, err = io.Copy(dstFile, newFile)
+		if err != nil {
+			logrus.Errorf("Failed to copy file %v to sftp server. Err: %v", newFile.Name(), err.Error())
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+			continue
+		}
+
+		// read again to count row after converted
+		convertedFile, err := clientDest.Open(handler.Config.Indodana.DestinationPath + "/" + newFilename)
+		if err != nil {
+			logrus.Fatalf("Failed to read file (converted) %s: %v", newFilename, err)
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+		}
+
+		defer convertedFile.Close()
+
+		reader := csv.NewReader(convertedFile)
+		reader.Comma = ';'
+		convertedRecords, err := reader.ReadAll()
+		if err != nil {
+			logrus.Errorf("Failed to read csv: %v", err)
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+			continue
+		}
+
+		var countAfter int = len(convertedRecords) - 1
+
+		logrus.Printf("Count before: %d", countBefore)
+		logrus.Printf("Count after: %d", countAfter)
+
+		logrus.Printf("Success converting file")
+
+		handler.OnSuccessHandler("", channelName, countBefore, countAfter)
+
+		err = os.Remove(localPathBefore)
+		if err != nil {
+			logrus.Errorf("Failed to remove local file %v", err)
+		}
+		err = os.Remove(localFileAfter)
+		if err != nil {
+			logrus.Errorf("Failed to remove local file %v", err)
+		}
+
+		backupPath := handler.Config.Indodana.BackupPath + "/" + file.Name()
+		err = client.Rename(remoteFileSourcePath, backupPath)
+		if err != nil {
+			logrus.Errorf("Failed to remove remote file %v", err)
+		}
+	}
 }
 
 func (handler *Handler) IndodanaHandler() {
