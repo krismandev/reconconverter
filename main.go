@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
+	"io"
 	"os"
 	"reconconverter/config"
 	"reconconverter/handler"
@@ -64,11 +65,22 @@ func main() {
 
 	c := cron.New()
 
+	logFile, err := os.OpenFile("miniprogram", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		logrus.Fatalf("Failed to create logfile %v", err)
+	}
+
+	writers := []io.Writer{
+		os.Stdout,
+		logFile,
+	}
 	logrus.SetReportCaller(true)
 	logrus.SetFormatter(&utils.CustomJSONFormatter{})
-	logrus.SetOutput(os.Stdout)
+	logrus.SetOutput(io.MultiWriter(writers...))
+
 	config := &config.Config{}
 	configFile := "./config.yaml"
+
 	config.LoadYAML(&configFile)
 
 	assets, err := mail.NewAssets("./views", mail.NotifConverted)
@@ -78,15 +90,24 @@ func main() {
 
 	handler := handler.NewHandler(config, assets)
 
-	c.AddFunc("* * * * *", func() {
-		counter := 0
-		for counter < 4 {
-			counter++
-			handler.IndodanaHandler()
-			handler.OvoHandler()
-			time.Sleep(time.Second * 15)
+	cronList := strings.Split(config.Cron, ",")
+
+	for _, each := range cronList {
+		_, err := c.AddFunc(each, func() {
+			counter := 0
+			for counter < 4 {
+				counter++
+				handler.IndodanaHandler()
+				handler.OvoHandler()
+				// duration := time.Duration()
+				time.Sleep(time.Duration(config.JobLoopDelay) * time.Minute)
+			}
+		})
+
+		if err != nil {
+			logrus.Fatalf("Error initiate cron : %v", err)
 		}
-	})
+	}
 
 	c.AddFunc("* * * * *", func() {
 		handler.BackupCleanerIndodana()

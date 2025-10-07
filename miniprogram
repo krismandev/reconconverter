@@ -1,0 +1,9 @@
+{"time":"2025-10-07T17:50:15+07:00","level":"fatal","message":"failed to connect to smtp server: dial tcp 192.168.38.156:587: i/o timeout"}
+{"time":"2025-10-07T17:59:21+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-07T17:59:21+07:00","level":"fatal","message":"Error initiate cron : empty spec string"}
+{"time":"2025-10-07T18:01:37+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-07T18:01:55+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-07T18:02:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-07T18:02:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-07T18:03:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-07T18:03:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}

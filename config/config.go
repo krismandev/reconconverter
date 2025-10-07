@@ -40,6 +40,8 @@ type Config struct {
 		To       string `yaml:"to"`
 	} `yaml:"smtp"`
 	MailReceivers []string
+	Cron          string `yaml:"cron"`
+	JobLoopDelay  int    `yaml:"jobLoopDelay"`
 }
 
 type Sftp struct {
