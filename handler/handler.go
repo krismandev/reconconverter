@@ -37,6 +37,8 @@ var reasonsMap = map[string]string{
 	"internalError":    "Internal Error",
 }
 
+var indodanaFormat []string = []string{"NO", "MERCHANT NAME", "TRANSACTION DATE", "TRANSIDMERCHANT", "CUSTOMER NAME", "AMOUNT", "FEE", "TAX", "MERCHANT SUPPORT", "PAY TO MERCHANT", "PAY OUT DATE", "TRANSACTION TYPE", "TENURE"}
+
 func NewHandler(config *config.Config, assets *mail.Assets) *Handler {
 
 	dialer := gomail.NewDialer(config.Smtp.Host, config.Smtp.Port, config.Smtp.User, config.Smtp.Password)
@@ -395,11 +397,34 @@ func (handler *Handler) IndodanaHandler() {
 		}
 
 		var countBefore int
+		var errorOnContent bool = false
+	firstLoop:
 		for idx, each := range rows {
-			if idx > 0 {
+			if idx == 0 {
+				if len(each) != len(indodanaFormat) {
+					logrus.Errorf("Invalid file format. Given format: %v expectedFormat: %v", each, indodanaFormat)
+					handler.OnErrorHandler("invalidFileError", channelName, err)
+					errorOnContent = true
+					break firstLoop
+				}
+				for i := 0; i < len(each)-1; i++ {
+					if each[i] != indodanaFormat[i] {
+						logrus.Errorf("Invalid file format. Given format: %v expectedFormat: %v", each, indodanaFormat)
+						handler.OnErrorHandler("invalidFileError", channelName, err)
+						errorOnContent = true
+						break firstLoop
+					}
+				}
+			} else {
 				countBefore++
 			}
 			content = append(content, each)
+		}
+
+		if errorOnContent {
+			logrus.Errorf("Got error on file: %v . Skipping this file", file.Name())
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+			continue
 		}
 
 		outputDir := "./tmp/after/" + channelName

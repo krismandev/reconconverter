@@ -7,3 +7,185 @@
 {"time":"2025-10-07T18:02:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
 {"time":"2025-10-07T18:03:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
 {"time":"2025-10-07T18:03:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-07T20:24:34+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-07T20:34:01+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-07T20:36:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-07T20:36:17+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31012025_yokke-ptp.xlsx"}
+{"time":"2025-10-07T20:36:18+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-07T20:36:18+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-07T20:36:18+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-07T20:36:18+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-07T20:36:25+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-07T20:36:26+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-07T20:36:26+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-07T20:36:26+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-07T20:38:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-07T20:38:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T14:17:10+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-08T14:18:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T14:18:03+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T14:18:04+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T14:18:04+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T14:18:04+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T14:18:06+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T16:45:36+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-08T16:46:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T16:46:04+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T16:48:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T16:48:16+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T16:50:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T16:50:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T16:52:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T16:52:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T16:54:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T16:54:03+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T16:56:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T16:56:02+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T16:56:03+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T16:56:03+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T16:56:03+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T16:56:04+07:00","level":"error","message":"Failed to backup remote file OFFLINE/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx to BACKUP/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx . Err: sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:529"}
+{"time":"2025-10-08T16:56:04+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T16:58:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T16:58:03+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T16:58:03+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T16:58:03+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T16:58:03+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T16:58:04+07:00","level":"error","message":"Failed to backup remote file OFFLINE/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx to BACKUP/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx . Err: sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:529"}
+{"time":"2025-10-08T16:58:05+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T18:52:44+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-08T18:54:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T18:54:02+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T18:54:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T18:54:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T18:54:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T18:54:02+07:00","level":"error","message":"Failed to backup remote file OFFLINE/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx to BACKUP/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx . Err: sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:533"}
+{"time":"2025-10-08T18:54:03+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T18:56:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T18:56:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T18:56:01+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T18:56:01+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T18:56:01+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T18:56:02+07:00","level":"error","message":"Failed to backup remote file OFFLINE/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx to BACKUP/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx . Err: sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:533"}
+{"time":"2025-10-08T18:56:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T18:58:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T18:58:03+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T18:58:03+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T18:58:03+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T18:58:03+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T18:58:04+07:00","level":"error","message":"Failed to backup remote file OFFLINE/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx to BACKUP/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx . Err: sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:533"}
+{"time":"2025-10-08T18:58:04+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T19:01:56+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-08T19:02:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T19:02:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T19:02:01+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T19:02:01+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T19:02:01+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T19:02:02+07:00","level":"error","message":"Failed to backup remote file OFFLINE/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx to BACKUP/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx . Err: sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:533"}
+{"time":"2025-10-08T19:02:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T19:04:23+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-08T19:06:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T19:06:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T19:06:01+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T19:06:01+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T19:06:01+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T19:06:02+07:00","level":"error","message":"Failed to backup remote file OFFLINE/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx to BACKUP/Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx . Err: sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:533"}
+{"time":"2025-10-08T19:06:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-08T19:09:22+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-08T19:10:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T19:10:00+07:00","level":"fatal","message":"Failed to dial: ssh: handshake failed: read tcp 172.20.240.100:58600-\u003e192.168.38.129:6779: read: connection reset by peer"}
+{"time":"2025-10-08T19:10:45+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-08T19:12:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-08T19:12:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31082025_yokke-ptp.xlsx"}
+{"time":"2025-10-08T19:12:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-08T19:12:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-08T19:12:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-08T19:12:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T11:25:51+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T11:26:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T11:26:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T11:26:01+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-09T11:26:01+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-09T11:26:01+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T11:26:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:03:56+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:04:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:04:00+07:00","level":"fatal","message":"Failed to dial: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none password], no supported methods remain"}
+{"time":"2025-10-09T12:04:28+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:06:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:06:00+07:00","level":"fatal","message":"Failed to dial: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none password], no supported methods remain"}
+{"time":"2025-10-09T12:08:33+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:09:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:09:00+07:00","level":"fatal","message":"Failed to dial: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none password], no supported methods remain"}
+{"time":"2025-10-09T12:09:50+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:10:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:10:00+07:00","level":"fatal","message":"Failed to dial: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none password], no supported methods remain"}
+{"time":"2025-10-09T12:10:16+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:11:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:11:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:11:00+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-09T12:11:00+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-09T12:11:00+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T12:11:00+07:00","level":"error","message":"Failed to backup remote file upload/Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx to backup/Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx . Err: file does not exist","file":"handler.go:533"}
+{"time":"2025-10-09T12:11:00+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:12:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:12:01+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:13:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:13:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:13:00+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-09T12:13:00+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-09T12:13:00+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T12:13:00+07:00","level":"error","message":"Failed to backup remote file upload/Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx to backup/Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx . Err: file does not exist","file":"handler.go:534"}
+{"time":"2025-10-09T12:13:00+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:14:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:14:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:14:00+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-09T12:14:00+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-09T12:14:00+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T12:14:00+07:00","level":"error","message":"Failed to backup remote file upload/Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx to backup/Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx . Err: file does not exist","file":"handler.go:534"}
+{"time":"2025-10-09T12:14:00+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:19:47+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:20:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:20:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:20:00+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-09T12:20:00+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-09T12:20:00+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T12:20:00+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:26:31+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:27:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:27:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:27:00+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-09T12:27:00+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-09T12:27:00+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T12:27:00+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:30:24+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:31:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:31:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:31:00+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-09T12:31:00+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-09T12:31:00+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T12:31:00+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:37:27+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T12:38:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:38:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:38:00+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSIDMERCHANT AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:409"}
+{"time":"2025-10-09T12:38:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:429"}
+{"time":"2025-10-09T12:38:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T12:39:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T12:39:00+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T12:39:00+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSIDMERCHANT AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:409"}
+{"time":"2025-10-09T12:39:00+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_05022025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:429"}
+{"time":"2025-10-09T12:39:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T18:39:46+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T18:40:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T18:40:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T18:41:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T18:41:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T18:41:01+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME TRXAMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:412"}
+{"time":"2025-10-09T18:41:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:425"}
+{"time":"2025-10-09T18:41:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T18:42:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T18:42:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T18:42:01+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME TRXAMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:412"}
+{"time":"2025-10-09T18:42:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:425"}
+{"time":"2025-10-09T18:42:01+07:00","level":"info","message":"Job Running... Ovo"}
