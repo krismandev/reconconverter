@@ -238,12 +238,8 @@ func (handler *Handler) OvoHandler() {
 				}
 			}
 			// jika kolom terakhir tidak ada datanya
-			if len(each) == columnNum-1 {
-				each = append(each, "")
-			} else if len(each) == columnNum {
-				//
-			} else {
-				// jumlah kolom data tidak sama dengan header
+			if len(each) != columnNum {
+				// each = append(each, "")
 				logrus.Errorf("Invalid file. File in unknown format %v.", file.Name())
 				errorOnContent = true
 				break firstLoop
