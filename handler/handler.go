@@ -38,6 +38,7 @@ var reasonsMap = map[string]string{
 }
 
 var indodanaFormat []string = []string{"NO", "MERCHANT NAME", "TRANSACTION DATE", "TRANSIDMERCHANT", "CUSTOMER NAME", "AMOUNT", "FEE", "TAX", "MERCHANT SUPPORT", "PAY TO MERCHANT", "PAY OUT DATE", "TRANSACTION TYPE", "TENURE"}
+var ovoFormat []string = []string{"TransactionDate", "TransactionTime", "GroupID", "GroupName", "MerchantID", "MerchantName", "StoreCode", "StoreName", "TerminalID", "MerchantInvoice", "ApprovalCode", "TransactionType", "TransactionAmount", "CashAmountUsed", "OVOPointUsed", "MDROVOCash", "NettAmountOVOCash", "MDROVOPoint", "NettAmountOVOPoint", "OVOPayLaterUsed", "MDROVOPayLater", "NettAmountOVOPayLater", "SavingsAmountUsed", "MDRSavingsPlusByNobu", "NettAmountSavingsPlusByNobu", "RefundOVOCash", "RefundOVOPoint", "RefundOVOPaylater", "NettSettlement", "BillingID", "ReffNo", "TraceNo", "NoRekeningMerchant", "BankTujuan", "CampaignName", "PointFundedMerchant", "MDRRefundCash", "MDRRefundPoint", "MDRRefundPayLater", "OrderID", "OriginalRefId", "OriginalTrxDate"}
 
 func NewHandler(config *config.Config, assets *mail.Assets) *Handler {
 
@@ -82,6 +83,11 @@ func (handler *Handler) OvoHandler() {
 	files, err := client.ReadDir(handler.Config.Ovo.SourcePath)
 	if err != nil {
 		logrus.Fatalf("Failed to read directory: %v", err)
+		return
+	}
+	if len(files) == 0 {
+		logrus.Errorf("No file to process %v", err)
+		handler.OnErrorHandler("notExistsError", channelName, err)
 		return
 	}
 
@@ -150,9 +156,15 @@ func (handler *Handler) OvoHandler() {
 			continue
 		}
 
+		styleID, err := f.NewStyle(&excelize.Style{
+			NumFmt: 0, // 0 = General
+		})
 		sheetList := f.GetSheetList()
 
 		sheet := sheetList[0]
+
+		f.SetColStyle(sheet, "M:AC", styleID)
+		f.SetColStyle(sheet, "AK:AM", styleID)
 
 		// var header []string
 		var content [][]string
@@ -167,10 +179,13 @@ func (handler *Handler) OvoHandler() {
 
 		var countBefore int
 		for idx, each := range rows {
-			if idx > 0 {
+			if idx < len(rows)-1 {
+				content = append(content, each)
+			}
+
+			if idx > 0 && idx < len(rows)-1 {
 				countBefore++
 			}
-			content = append(content, each)
 		}
 
 		outputDir := "./tmp/after/" + channelName
@@ -200,26 +215,56 @@ func (handler *Handler) OvoHandler() {
 		writer := csv.NewWriter(newFile)
 		writer.Comma = ';'
 		columnNum := 0
+		var errorOnContent bool = false
 
+	firstLoop:
 		for idx, each := range content {
+			// cek format header
 			if idx == 0 {
 				columnNum = len(each)
-			}
-			// exclude row terakhir (row summary)
-			if idx < len(content)-1 {
-				// jika kolom terakhir tidak ada datanya
-				if len(each) == (columnNum - 1) {
-					each = append(each, "")
+				if len(each) != len(ovoFormat) {
+					logrus.Errorf("Invalid file format. Given format: %v expectedFormat: %v", each, indodanaFormat)
+					handler.OnErrorHandler("invalidFileError", channelName, err)
+					errorOnContent = true
+					break firstLoop
 				}
-				if err := writer.Write(each); err != nil {
-					logrus.Errorf("Failed to write file %v: %v", newFile.Name(), err)
-					handler.OnErrorHandler("internalError", channelName, err)
-					continue
+				for i := 0; i < len(each)-1; i++ {
+					if each[i] != ovoFormat[i] {
+						logrus.Errorf("Invalid file format. Given format: %v expectedFormat: %v", each, indodanaFormat)
+						handler.OnErrorHandler("invalidFileError", channelName, err)
+						errorOnContent = true
+						break firstLoop
+					}
 				}
 			}
+			// jika kolom terakhir tidak ada datanya
+			if len(each) == columnNum-1 {
+				each = append(each, "")
+			} else if len(each) == columnNum {
+				//
+			} else {
+				// jumlah kolom data tidak sama dengan header
+				logrus.Errorf("Invalid file. File in unknown format %v.", file.Name())
+				errorOnContent = true
+				break firstLoop
+			}
+
+			if err := writer.Write(each); err != nil {
+				logrus.Errorf("Failed to write file %v: %v", newFile.Name(), err)
+				handler.OnErrorHandler("internalError", channelName, err)
+				errorOnContent = true
+				break firstLoop
+			}
+
 		}
 
 		writer.Flush()
+
+		if errorOnContent {
+			logrus.Errorf("Got error on file: %v . Skipping this file", file.Name())
+			handler.OnErrorHandler("invalidFileError", channelName, err)
+			continue
+		}
 
 		fmt.Println("OVO file " + localFileBefore.Name() + " converted to ---->  " + newFilename + " successfully")
 
@@ -272,14 +317,14 @@ func (handler *Handler) OvoHandler() {
 
 		handler.OnSuccessHandler("", channelName, countBefore, countAfter)
 
-		err = os.Remove(localPathBefore)
-		if err != nil {
-			logrus.Errorf("Failed to remove local file %v", err)
-		}
-		err = os.Remove(localFileAfter)
-		if err != nil {
-			logrus.Errorf("Failed to remove local file %v", err)
-		}
+		// err = os.Remove(localPathBefore)
+		// if err != nil {
+		// 	logrus.Errorf("Failed to remove local file %v", err)
+		// }
+		// err = os.Remove(localFileAfter)
+		// if err != nil {
+		// 	logrus.Errorf("Failed to remove local file %v", err)
+		// }
 
 		backupPath := handler.Config.Ovo.BackupPath + "/" + file.Name()
 		err = client.Rename(remoteFileSourcePath, backupPath)
@@ -312,6 +357,12 @@ func (handler *Handler) IndodanaHandler() {
 	files, err := client.ReadDir(handler.Config.Indodana.SourcePath)
 	if err != nil {
 		logrus.Fatalf("Failed to read directory: %v", err)
+		return
+	}
+
+	if len(files) == 0 {
+		logrus.Errorf("No file to process %v", err)
+		handler.OnErrorHandler("notExistsError", channelName, err)
 		return
 	}
 

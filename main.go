@@ -109,10 +109,10 @@ func main() {
 		}
 	}
 
-	c.AddFunc("* * * * *", func() {
-		handler.BackupCleanerIndodana()
-		handler.BackupCleanerOvo()
-	})
+	// c.AddFunc("* * * * *", func() {
+	// 	handler.BackupCleanerIndodana()
+	// 	handler.BackupCleanerOvo()
+	// })
 
 	c.Start()
 

@@ -189,3 +189,229 @@
 {"time":"2025-10-09T18:42:01+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME TRXAMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:412"}
 {"time":"2025-10-09T18:42:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:425"}
 {"time":"2025-10-09T18:42:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T19:31:51+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T19:32:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-09T19:32:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T19:32:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-09T19:32:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T19:32:01+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME TRXAMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:444"}
+{"time":"2025-10-09T19:32:01+07:00","level":"info","message":"file YOKKE_0700010411960_27-03-2024.xlsx deleted successfully"}
+{"time":"2025-10-09T19:32:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:457"}
+{"time":"2025-10-09T19:32:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T19:32:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-09T19:32:02+07:00","level":"error","message":"Invalid file format. Given format: [TransactionDate TransactionTime GroupID GroupName MerchantID MerchantName StoreCode StoreName TerminalID MerchantInvoice ApprovalCode TransactionType TransactionAmount CashAmountUsed OVOPointUsed MDROVOCash NettAmountOVOCash MDROVOPoint NettAmountOVOPoint OVOPayLaterUsed MDROVOPayLater NettAmountOVOPayLater SavingsAmountUsed MDRSavingsPlusByNobu NettAmountSavingsPlusByNobu RefundOVOCash RefundOVOPoint RefundOVOPaylater NettSettlement BillingID ReffNo TraceNo NoRekeningMerchant BankTujuan CampaignName PointFundedMerchant MDRRefundCash MDRRefundPoint MDRRefundPayLater OrderID OriginalRefId OriginalTrxDate] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:219"}
+{"time":"2025-10-09T19:32:02+07:00","level":"error","message":"Got error on file: YOKKE_0700010411960_27-03-2024.xlsx . Skipping this file","file":"handler.go:251"}
+{"time":"2025-10-09T20:00:57+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T20:01:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:01:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-09T20:01:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-09T20:01:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T20:01:01+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME TRXAMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:444"}
+{"time":"2025-10-09T20:01:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:457"}
+{"time":"2025-10-09T20:01:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:01:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-09T20:01:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-09T20:01:02+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-09T20:01:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T20:16:32+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T20:17:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-09T20:17:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:17:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-09T20:17:01+07:00","level":"info","message":"file YOKKE_0700010411960_27-03-2024.xlsx deleted successfully"}
+{"time":"2025-10-09T20:17:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T20:17:01+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME TRXAMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:446"}
+{"time":"2025-10-09T20:17:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:459"}
+{"time":"2025-10-09T20:17:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:18:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-09T20:18:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:18:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-09T20:18:01+07:00","level":"info","message":"Downloaded: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx"}
+{"time":"2025-10-09T20:18:01+07:00","level":"error","message":"Invalid file format. Given format: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME TRXAMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE] expectedFormat: [NO MERCHANT NAME TRANSACTION DATE TRANSIDMERCHANT CUSTOMER NAME AMOUNT FEE TAX MERCHANT SUPPORT PAY TO MERCHANT PAY OUT DATE TRANSACTION TYPE TENURE]","file":"handler.go:446"}
+{"time":"2025-10-09T20:18:01+07:00","level":"error","message":"Got error on file: Indodana_Disbursement_Report_31032025_yokke-ptp.xlsx . Skipping this file","file":"handler.go:459"}
+{"time":"2025-10-09T20:18:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:29:57+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T20:30:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-09T20:30:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:30:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-09T20:30:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:30:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-09T20:30:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-09T20:30:02+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-09T20:30:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T20:31:00+07:00","level":"info","message":"Job Running... Indodana backup removal"}
+{"time":"2025-10-09T20:31:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:31:00+07:00","level":"info","message":"Job Running... Ovo backup removal"}
+{"time":"2025-10-09T20:31:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:31:01+07:00","level":"info","message":"file YOKKE_0700010411960_27-03-2024.xlsx deleted successfully"}
+{"time":"2025-10-09T20:33:33+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T20:34:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:34:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:34:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-09T20:34:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-09T20:34:02+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-09T20:34:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T20:35:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:35:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:36:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:36:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:37:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:37:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:38:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:38:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:39:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:39:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:48:28+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-09T20:49:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:49:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:50:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:50:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:50:01+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-09T20:50:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-09T20:50:02+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-09T20:50:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-09T20:51:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-09T20:51:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-09T20:51:01+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-09T20:51:01+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-09T20:51:01+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-09T20:51:01+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T09:07:41+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T09:08:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T09:08:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T09:08:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T09:08:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-10T09:08:02+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-10T09:08:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T09:30:32+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T09:31:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T09:31:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T09:31:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T09:31:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-10T09:31:02+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-10T09:31:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T09:32:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T09:32:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T09:32:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T09:32:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-10T09:32:02+07:00","level":"info","message":"Count after: 0"}
+{"time":"2025-10-10T09:32:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T09:37:33+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T09:38:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T09:38:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T09:38:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T09:38:02+07:00","level":"info","message":"Count before: 2"}
+{"time":"2025-10-10T09:38:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T09:38:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T09:41:23+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T09:55:13+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T09:56:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T09:56:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T09:56:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T09:56:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T09:56:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T09:56:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T13:24:15+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T13:25:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T13:25:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T13:25:04+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T13:25:05+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T13:25:05+07:00","level":"info","message":"Count after: -1"}
+{"time":"2025-10-10T13:25:05+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T14:10:10+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T14:11:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:11:04+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:11:08+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T14:11:08+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T14:11:08+07:00","level":"info","message":"Count after: -1"}
+{"time":"2025-10-10T14:11:08+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T14:13:25+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T14:14:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:14:02+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:14:06+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T14:14:06+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T14:14:06+07:00","level":"info","message":"Count after: -1"}
+{"time":"2025-10-10T14:14:06+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T14:15:25+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T14:16:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:16:03+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:16:09+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T14:16:10+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T14:16:10+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T14:16:10+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T14:25:14+07:00","level":"fatal","message":"failed to connect to smtp server: dial tcp 192.168.38.156:587: i/o timeout"}
+{"time":"2025-10-10T14:27:11+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T14:28:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:28:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:28:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T14:28:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T14:28:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T14:28:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T14:28:02+07:00","level":"error","message":"Failed to remove remote file sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:321"}
+{"time":"2025-10-10T14:30:37+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T14:31:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:31:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:31:01+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T14:31:01+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T14:31:01+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T14:31:01+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T14:32:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:32:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:33:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:33:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:34:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:34:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:35:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:35:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:36:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:36:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:37:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:37:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:38:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:38:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:39:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:39:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:40:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:40:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:41:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:41:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:42:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:42:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T14:43:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T14:43:06+07:00","level":"fatal","message":"Failed to dial: dial tcp 192.168.38.129:6779: connect: no route to host"}
+{"time":"2025-10-10T15:22:20+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T15:23:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T15:23:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T15:23:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T15:23:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T15:23:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T15:23:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T15:23:02+07:00","level":"error","message":"Failed to remove remote file sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:326"}
+{"time":"2025-10-10T15:24:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T15:24:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T15:24:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T15:24:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T15:24:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T15:24:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T15:24:02+07:00","level":"error","message":"Failed to remove remote file sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:326"}
+{"time":"2025-10-10T15:25:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T15:25:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T15:25:03+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T15:25:03+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T15:25:03+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T15:25:03+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T15:25:03+07:00","level":"error","message":"Failed to remove remote file sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:326"}
+{"time":"2025-10-10T15:26:23+07:00","level":"info","message":"Connected to smtp"}
+{"time":"2025-10-10T15:27:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T15:27:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T15:27:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T15:27:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T15:27:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T15:27:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T15:27:02+07:00","level":"error","message":"Failed to remove remote file sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:332"}
+{"time":"2025-10-10T15:28:00+07:00","level":"info","message":"Job Running... Indodana"}
+{"time":"2025-10-10T15:28:01+07:00","level":"info","message":"Job Running... Ovo"}
+{"time":"2025-10-10T15:28:02+07:00","level":"info","message":"Downloaded: YOKKE_0700010411960_27-03-2024.xlsx"}
+{"time":"2025-10-10T15:28:02+07:00","level":"info","message":"Count before: 1"}
+{"time":"2025-10-10T15:28:02+07:00","level":"info","message":"Count after: 1"}
+{"time":"2025-10-10T15:28:02+07:00","level":"info","message":"Success converting file"}
+{"time":"2025-10-10T15:28:02+07:00","level":"error","message":"Failed to remove remote file sftp: \"Failure\" (SSH_FX_FAILURE)","file":"handler.go:332"}
