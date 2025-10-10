@@ -1,4 +1,5 @@
 *.xlsx
 *.csv
 converted/
+tmp/
 config.yaml

@@ -31,41 +31,9 @@ func (*Application) JobHandler() {
 
 func main() {
 
-	// folder := "."
-	// err := filepath.WalkDir(folder, func(path string, d os.DirEntry, err error) error {
-	// 	if err != nil {
-	// 		return err
-	// 	}
-
-	// 	if d.IsDir() || !strings.HasSuffix(d.Name(), ".xlsx") {
-	// 		return nil
-	// 	}
-
-	// 	logrus.Infof("Reading file.... %v", d.Name())
-	// 	if strings.HasPrefix(d.Name(), "Indodana") {
-	// 		err = indodanaHandler(path, d.Name())
-	// 		if err != nil {
-	// 			return err
-	// 		}
-	// 	} else {
-	// 		err = ovoHandler(path, d.Name())
-	// 	}
-
-	// 	return nil
-	// })
-
-	// if err != nil {
-	// 	logrus.Errorf("Got error : %v", err)
-	// } else {
-	// 	logrus.Info("Success")
-	// }
-
-	// fmt.Println("Press ENTER to exit")
-	// bufio.NewReader(os.Stdin).ReadBytes('\n')
-
 	c := cron.New()
 
-	logFile, err := os.OpenFile("miniprogram", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	logFile, err := os.OpenFile("miniprogram"+".log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		logrus.Fatalf("Failed to create logfile %v", err)
 	}

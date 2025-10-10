@@ -313,14 +313,14 @@ func (handler *Handler) OvoHandler() {
 
 		handler.OnSuccessHandler("", channelName, countBefore, countAfter)
 
-		// err = os.Remove(localPathBefore)
-		// if err != nil {
-		// 	logrus.Errorf("Failed to remove local file %v", err)
-		// }
-		// err = os.Remove(localFileAfter)
-		// if err != nil {
-		// 	logrus.Errorf("Failed to remove local file %v", err)
-		// }
+		err = os.Remove(localPathBefore)
+		if err != nil {
+			logrus.Errorf("Failed to remove local file %v", err)
+		}
+		err = os.Remove(localFileAfter)
+		if err != nil {
+			logrus.Errorf("Failed to remove local file %v", err)
+		}
 
 		backupPath := handler.Config.Ovo.BackupPath + "/" + file.Name()
 		err = client.Rename(remoteFileSourcePath, backupPath)
